@@ -1,6 +1,6 @@
 {
   "name": "nhanderu-frontend",
-  "version": "2.1.1",
+  "version": "0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +9,27 @@
     "export": "next export",
     "build-prod": "run-s clean build export",
     "clean": "rimraf .next out",
-    "lint": "next lint",
     "check-types": "tsc --noEmit --pretty && tsc --project cypress --noEmit --pretty",
     "test": "jest",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build:test": "NODE_ENV=test next build",
+    "start:test": "NODE_ENV=test next dev",
+    "eject": "react-scripts eject",
+    "fmt": "prettier --write src/**/*.{ts,tsx,css} --config ./.prettierrc",
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint:eslint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "yarn lint:eslint --fix",
+    "lint:prettier": "prettier --check -u .",
+    "lint:errors": "yarn lint:eslint --quiet",
+    "verify": "yarn tsc && yarn lint && yarn build:test && yarn test",
+    "verify:quick": "yarn tsc && yarn fmt && yarn lint:fix",
+    "test:e2e": "yarn start:test cypress",
+    "test:e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
+    "test:ci": "next start -p 3000"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -78,6 +91,5 @@
     "start-server-and-test": "^1.14.0",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.8.4"
-  },
-  "author": "Ixartz (https://github.com/ixartz)"
+  }
 }
