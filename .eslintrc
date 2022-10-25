@@ -9,15 +9,24 @@
     "prettier/prettier": [
       "error",
       {
+        "endOfLine": "auto",
+        "semi": false,
+        "tabWidth": 2,
+        "printWidth": 100,
         "singleQuote": true,
-        "endOfLine": "auto"
+        "trailingComma": "all",
+        "jsxSingleQuote": true,
+        "bracketSpacing": true
       }
     ]
   },
   "overrides": [
     // Configuration for TypeScript files
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
       "plugins": [
         "@typescript-eslint",
         "unused-imports",
@@ -37,8 +46,14 @@
         "prettier/prettier": [
           "error",
           {
+            "endOfLine": "auto",
+            "semi": false,
+            "tabWidth": 2,
+            "printWidth": 100,
             "singleQuote": true,
-            "endOfLine": "auto"
+            "trailingComma": "all",
+            "jsxSingleQuote": true,
+            "bracketSpacing": true
           }
         ],
         "react/destructuring-assignment": "off", // Vscode doesn't support automatically destructuring, it's a pain to add a new variable
@@ -56,14 +71,24 @@
         "unused-imports/no-unused-imports": "error",
         "unused-imports/no-unused-vars": [
           "error",
-          { "argsIgnorePattern": "^_" }
+          {
+            "argsIgnorePattern": "^_"
+          }
         ]
       }
     },
     // Configuration for testing
     {
-      "files": ["**/*.test.ts", "**/*.test.tsx"],
-      "plugins": ["jest", "jest-formatting", "testing-library", "jest-dom"],
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "plugins": [
+        "jest",
+        "jest-formatting",
+        "testing-library",
+        "jest-dom"
+      ],
       "extends": [
         "plugin:jest/recommended",
         "plugin:jest-formatting/recommended",
@@ -73,9 +98,15 @@
     },
     // Configuration for e2e testing (Cypress)
     {
-      "files": ["**/*.cy.ts"],
-      "plugins": ["cypress"],
-      "extends": ["plugin:cypress/recommended"],
+      "files": [
+        "**/*.cy.ts"
+      ],
+      "plugins": [
+        "cypress"
+      ],
+      "extends": [
+        "plugin:cypress/recommended"
+      ],
       "parserOptions": {
         "project": "./cypress/tsconfig.json"
       }

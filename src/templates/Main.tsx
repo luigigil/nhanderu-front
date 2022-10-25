@@ -1,70 +1,48 @@
-import Link from 'next/link';
-import type { ReactNode } from 'react';
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Toolbar from '@mui/material/Toolbar'
+import type { PropsWithChildren } from 'react'
+import { useState } from 'react'
 
-import { AppConfig } from '@/utils/AppConfig';
+import AppBarContainer from '@/layouts/app-bar/app-bar-container'
+import Copyright from '@/layouts/copyright'
+import DrawerContainer from '@/layouts/drawer/drawer-container'
 
-type IMainProps = {
-  meta: ReactNode;
-  children: ReactNode;
-};
+const mdTheme = createTheme()
+export default function Layout({ children }: PropsWithChildren) {
+  const [open, setOpen] = useState(true)
 
-const Main = (props: IMainProps) => (
-  <div className="w-full px-1 text-gray-700 antialiased">
-    {props.meta}
+  const toggleDrawer = () => {
+    setOpen(!open)
+  }
 
-    <div className="mx-auto max-w-screen-md">
-      <div className="border-b border-gray-300">
-        <div className="pt-16 pb-8">
-          <div className="text-3xl font-bold text-gray-900">
-            {AppConfig.title}
-          </div>
-          <div className="text-xl">{AppConfig.description}</div>
-        </div>
-        <div>
-          <ul className="flex flex-wrap text-xl">
-            <li className="mr-6">
-              <Link href="/">
-                <a className="border-none text-gray-700 hover:text-gray-900">
-                  Home
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/about/">
-                <a className="border-none text-gray-700 hover:text-gray-900">
-                  About
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <a
-                className="border-none text-gray-700 hover:text-gray-900"
-                href="https://github.com/ixartz/Next-js-Boilerplate"
-              >
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="content py-5 text-xl">{props.children}</div>
-
-      <div className="border-t border-gray-300 py-8 text-center text-sm">
-        © Copyright {new Date().getFullYear()} {AppConfig.title}. Powered with{' '}
-        <span role="img" aria-label="Love">
-          ♥
-        </span>{' '}
-        by <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
-        {/*
-         * PLEASE READ THIS SECTION
-         * We'll really appreciate if you could have a link to our website
-         * The link doesn't need to appear on every pages, one link on one page is enough.
-         * Thank you for your support it'll mean a lot for us.
-         */}
-      </div>
-    </div>
-  </div>
-);
-
-export { Main };
+  return (
+    <>
+      <ThemeProvider theme={mdTheme}>
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <AppBarContainer open={open} handleDrawerOpen={toggleDrawer} />
+          <DrawerContainer open={open} handleDrawerOpen={toggleDrawer} />
+          <Box
+            component='main'
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
+            }}
+          >
+            <Toolbar />
+            <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+              {children}
+              <Copyright sx={{ pt: 4 }} />
+            </Container>
+          </Box>
+        </Box>
+      </ThemeProvider>
+    </>
+  )
+}

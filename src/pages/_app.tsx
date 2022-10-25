@@ -1,9 +1,13 @@
-import '../styles/global.css';
+import '../styles/global.css'
 
-import type { AppProps } from 'next/app';
+import type { AppProps } from 'next/app'
+
+import Layout from '@/templates/Main'
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <Component {...pageProps} />
-);
+  <Layout>
+    <Component {...pageProps} />
+  </Layout>
+)
 
-export default MyApp;
+export default MyApp
